@@ -1,38 +1,48 @@
 package com.company;
 
-public class IterationDto<T> {
+public class IterationDto {
 
-    private T first;
-    private T second;
-    private T result;
+    private double first;
+    private double second;
+    private double result;
+    private double step;
 
-    public IterationDto(T first, T second, T result) {
+    public IterationDto(double first, double second, double result, double step) {
         this.first = first;
         this.second = second;
         this.result = result;
+        this.step = step;
     }
 
-    public T getFirst() {
+    public double getFirst() {
         return first;
     }
 
-    public void setFirst(T first) {
+    public void setFirst(double first) {
         this.first = first;
     }
 
-    public T getSecond() {
+    public double getSecond() {
         return second;
     }
 
-    public void setSecond(T second) {
+    public void setSecond(double second) {
         this.second = second;
     }
 
-    public T getResult() {
+    public double getResult() {
         return result;
     }
 
-    public void setResult(T result) {
+    public void setResult(double result) {
         this.result = result;
+    }
+
+    public double getStep() {
+        return step;
+    }
+
+    public void setStep(double step) {
+        this.step = step;
     }
 }
