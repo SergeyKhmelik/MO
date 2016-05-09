@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.function.BiFunction;
 
@@ -12,7 +13,8 @@ public class Main {
         BiFunction<Double, Double, Double> x2Derivative = (x1, x2) -> 2 * x1 * x2 + 6 * x1;
         BiFunction<Double, Double, Double> x1SecondDerivative = (x1, x2) -> 6 * x1;
         BiFunction<Double, Double, Double> x2SecondDerivative = (x1, x2) -> 2 * x1;
-
+        BiFunction<Double, Double, Double> x1x2Directive = (x1, x2) -> 2 * x2 + 6;
+        BiFunction<Double, Double, Double> x2x1Directive = (x1, x2) -> 2 * x1 + 6;
 
         double firstApproximationX1 = 1.5;
         double firstApproximationX2 = -2d;
@@ -29,7 +31,10 @@ public class Main {
                 x1SecondDerivative, x2SecondDerivative,
                 e);
 
-        List<IterationDto> newtonResults = NewtonService.getMinimum(function, x1Derivative, x2Derivative,
+        List<IterationDto> newtonResults = NewtonService.getMinimum(function,
+                x1Derivative, x2Derivative,
+                x1SecondDerivative, x2SecondDerivative,
+                x1x2Directive, x2x1Directive,
                 firstApproximationX1, firstApproximationX2, e);
 
         System.out.println("Gradient descent");
@@ -41,7 +46,7 @@ public class Main {
 
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("Newton");
-//        printResults(newtonResults);
+        printResults(newtonResults);
     }
 
     private static void printResults(List<IterationDto> gradientDescentResults) {
