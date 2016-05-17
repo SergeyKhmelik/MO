@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 
+import static com.company.Main.fullDerivative;
+
 public class NewtonService {
 
-    public static List<IterationDto> getMinimum(
-            BiFunction<Double, Double, Double> function,
+    public static List<IterationDto> getMinimum(BiFunction<Double, Double, Double> function,
             BiFunction<Double, Double, Double> x1Derivative, BiFunction<Double, Double, Double> x2Derivative,
             BiFunction<Double, Double, Double> x1SecondDerivative, BiFunction<Double, Double, Double> x2SecondDerivative,
             BiFunction<Double, Double, Double> x1x2Derivative, BiFunction<Double, Double, Double> x2x1Derivative,
-            double firstApproximationX1, double firstApproximationX2,
-            double e) {
+            double firstApproximationX1, double firstApproximationX2, double e) {
 
         List<IterationDto> iterations = new ArrayList<>();
 
@@ -28,14 +28,14 @@ public class NewtonService {
             x1 = newX1;
             x2 = newX2;
 
-            iterations.add(new IterationDto(x1, x2, function.apply(x1, x2), 0));
+            iterations.add(new IterationDto(x1, x2, function.apply(x1, x2), 0,
+                    fullDerivative(x1Derivative, x1, x2Derivative, x2)));
         } while (!(Math.abs(x1Derivative.apply(x1, x2)) <= e && Math.abs(x2Derivative.apply(x1, x2)) <= e));
 
         return iterations;
     }
 
-    private static double x1Approximate(double x1, double x2,
-                                        BiFunction<Double, Double, Double> x2SecondDerivative,
+    private static double x1Approximate(double x1, double x2, BiFunction<Double, Double, Double> x2SecondDerivative,
                                         BiFunction<Double, Double, Double> x1Derivative,
                                         BiFunction<Double, Double, Double> x1x2Derivative,
                                         BiFunction<Double, Double, Double> x2Derivative,
@@ -44,8 +44,7 @@ public class NewtonService {
                 x1x2Derivative.apply(x1, x2) * x2Derivative.apply(x1, x2));
     }
 
-    private static double x2Approximate(double x1, double x2,
-                                        BiFunction<Double, Double, Double> x1SecondDerivative,
+    private static double x2Approximate(double x1, double x2, BiFunction<Double, Double, Double> x1SecondDerivative,
                                         BiFunction<Double, Double, Double> x1Derivative,
                                         BiFunction<Double, Double, Double> x2x1Derivative,
                                         BiFunction<Double, Double, Double> x2Derivative,
@@ -54,8 +53,7 @@ public class NewtonService {
                 x2x1Derivative.apply(x1, x2) * x1Derivative.apply(x1, x2));
     }
 
-    private static double oneDivDet(double x1, double x2,
-                                    BiFunction<Double, Double, Double> x1SecondDerivative,
+    private static double oneDivDet(double x1, double x2, BiFunction<Double, Double, Double> x1SecondDerivative,
                                     BiFunction<Double, Double, Double> x2SecondDerivative,
                                     BiFunction<Double, Double, Double> x1x2Derivative,
                                     BiFunction<Double, Double, Double> x2x1Derivative) {

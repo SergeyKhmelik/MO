@@ -18,7 +18,7 @@ public class GradientDescentService {
 
         List<IterationDto> iterations = new ArrayList<>();
 
-        double a = 1d;     //step size
+        double a = 0.5;     //step size
         double result = function.apply(x1, x2);
         double nextResult;
 
@@ -41,10 +41,11 @@ public class GradientDescentService {
             }
 
             //Add iteration data to result dto
-            iterations.add(new IterationDto(x1, x2, result, a));
+            iterations.add(new IterationDto(x1, x2, result, a, fullDerivative(x1Derivative, x1, x2Derivative, x2)));
 
         } while(fullDerivative(x1Derivative, x1, x2Derivative, x2) >= e);
 
         return iterations;
     }
 }
+

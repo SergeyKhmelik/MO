@@ -6,11 +6,11 @@ import java.util.List;
 public class Main {
 
     private static double f(double x) {
-        return Math.pow(x, 4) + 2 * Math.pow(x, 2) - 8 * x + 3;
+        return Math.pow(x, 4) + 8  * Math.pow(x, 2) - 12 * x + 5;
     }
 
     private static double grad(double x) {
-        return 4 * Math.pow(x, 3) + 4 * x - 8;
+        return 4 * Math.pow(x, 3) + 16 * x - 12;
     }
 
     private static double hessian(double x) {
